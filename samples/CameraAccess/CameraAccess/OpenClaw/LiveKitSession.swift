@@ -227,7 +227,7 @@ final class LiveKitSession: NSObject, ObservableObject {
       track = await LocalVideoTrack.createBufferTrack(name: "glasses-preview", source: .camera)
       glassesCapturerBox.capturer = track.capturer as? BufferCapturer
     } else {
-     let track = await LocalVideoTrack.createCameraTrack(
+      track = await LocalVideoTrack.createCameraTrack(
         options: CameraCaptureOptions(position: .back))
       glassesCapturerBox.capturer = nil
     }
@@ -327,7 +327,7 @@ final class LiveKitSession: NSObject, ObservableObject {
     AudioManager.shared.isSpeakerOutputPreferred = !usingGlassesSource
 
     do {
-      let ticket = try await fetchTicket()
+     let  ticket = try await fetchTicket()
       guard generation == startGeneration,
             usingGlassesSource == (SettingsManager.shared.captureSource == .glasses) else {
         state = .disconnected
