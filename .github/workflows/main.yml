@@ -14,9 +14,9 @@ jobs:
       - name: Create Secrets.swift
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-       run: |
-             cp samples/CameraAccess/CameraAccess/Secrets.swift.example samples/CameraAccess/CameraAccess/Secrets.swift
-     
+        run: |
+          cp samples/CameraAccess/CameraAccess/Secrets.swift.example samples/CameraAccess/CameraAccess/Secrets.swift
+
       - name: Resolve Swift packages
         run: |
           xcodebuild \
