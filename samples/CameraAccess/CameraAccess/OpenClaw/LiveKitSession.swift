@@ -224,10 +224,10 @@ final class LiveKitSession: NSObject, ObservableObject {
     if SettingsManager.shared.captureSource == .glasses {
       // Glasses preview is a buffer track fed by pushGlassesFrame; there is
       // no capture device to open.
-      track = LocalVideoTrack.createBufferTrack(name: "glasses-preview", source: .camera)
+      track = await LocalVideoTrack.createBufferTrack(name: "glasses-preview", source: .camera)
       glassesCapturerBox.capturer = track.capturer as? BufferCapturer
     } else {
-      track = LocalVideoTrack.createCameraTrack(
+     let track = await LocalVideoTrack.createCameraTrack(
         options: CameraCaptureOptions(position: .back))
       glassesCapturerBox.capturer = nil
     }
