@@ -373,7 +373,7 @@ final class LiveKitSession: NSObject, ObservableObject {
           // camera source keeps mute/freeze/agent logic identical.
           // reportStatistics enables the per-second outbound-rtp stats poll so
           // we can log the actual encoded resolution/fps leaving the phone.
-          let track = LocalVideoTrack.createBufferTrack(name: "glasses", source: .camera, reportStatistics: true)
+          let track = await LocalVideoTrack.createBufferTrack(name: "glasses", source: .camera, reportStatistics: true)
           // New track, new frame clock: the deferred publish must wait for a
           // frame on THIS track. A sawFrame left true by the preview track
           // otherwise published this still-empty call track at once, so the
