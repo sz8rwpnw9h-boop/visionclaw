@@ -15,8 +15,12 @@ jobs:
  env:
    GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
  run: |
-   cp samples/CameraAccess/CameraAccess/Secrets.swift.example samples/CameraAccess/CameraAccess/Secrets.swift
-   python3 -c 'from pathlib import Path; import os; p=Path("samples/CameraAccess/CameraAccess/Secrets.swift"); p.write_text(p.read_text().replace("YOUR_GEMINI_API_KEY", os.environ["GEMINI_API_KEY"]))'
+     cp samples/CameraAccess/CameraAccess/Secrets.swift.example
+samples/CameraAccess/CameraAccess/Secrets.swift
+         python3 -c 'from pathlib import Path; import os; 
+p=Path("samples/CameraAccess/CameraAccess/Secrets.swift");
+p.write_text(p.read_text().replace("YOUR_GEMINI_API_KEY", 
+os.environ["GEMINI_API_KEY"]))'
       - name: Resolve Swift packages
         run: |
           xcodebuild \
