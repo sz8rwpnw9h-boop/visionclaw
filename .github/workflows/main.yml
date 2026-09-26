@@ -1,14 +1,19 @@
 name: Build VisionClaw iOS
 
 on:
+
   workflow_dispatch:
 
 jobs:
+
   build:
+
     runs-on: macos-latest
 
     steps:
+
       - name: Checkout
+
         uses: actions/checkout@v6
 
       - name: Create Secrets.swift
