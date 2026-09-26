@@ -47,8 +47,12 @@ jobs:
           name: VisionClaw-iOS-build
           path: VisionClaw-unsigned.zip
 
-      - name: Upload Xcode project
+      - name: Package full CameraAccess project
+        run: |
+          zip -r "$GITHUB_WORKSPACE/VisionClaw-CameraAccess-project.zip" samples/CameraAccess
+
+      - name: Upload full CameraAccess project
         uses: actions/upload-artifact@v4
         with:
           name: VisionClaw-iOS-project
-          path: samples/CameraAccess
+          path: VisionClaw-CameraAccess-project.zip
