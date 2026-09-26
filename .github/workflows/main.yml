@@ -12,9 +12,9 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Create Secrets.swift
-     env:
-            GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-            run: |
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+       run: |
              cp samples/CameraAccess/CameraAccess/Secrets.swift.example samples/CameraAccess/CameraAccess/Secrets.swift
      
       - name: Resolve Swift packages
