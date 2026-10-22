@@ -14,11 +14,15 @@ jobs:
       - name: Create Secrets.swift
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AGENT_GATEWAY_URL: ${{ secrets.AGENT_GATEWAY_URL }}
+          AGENT_GATEWAY_TOKEN: ${{ secrets.AGENT_GATEWAY_TOKEN }}
         run: |
           f=samples/CameraAccess/CameraAccess/Secrets.swift
           cp "$f.example" "$f"
           if [ -z "$GEMINI_API_KEY" ]; then echo "::error::GEMINI_API_KEY secret is not set"; exit 1; fi
           sed -i '' "s|YOUR_GEMINI_API_KEY|$GEMINI_API_KEY|" "$f"
+          if [ -n "$AGENT_GATEWAY_URL" ]; then sed -i '' "s|https://api.visionagents.app|$AGENT_GATEWAY_URL|" "$f"; fi
+          if [ -n "$AGENT_GATEWAY_TOKEN" ]; then sed -i '' "s|static let cloudGatewayToken = \"\"|static let cloudGatewayToken = \"$AGENT_GATEWAY_TOKEN\"|" "$f"; fi
 
       - name: Resolve Swift packages
         run: |
