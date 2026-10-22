@@ -15,7 +15,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          cp samples/CameraAccess/CameraAccess/Secrets.swift.example samples/CameraAccess/CameraAccess/Secrets.swift
+          f=samples/CameraAccess/CameraAccess/Secrets.swift
+          cp "$f.example" "$f"
+          if [ -z "$GEMINI_API_KEY" ]; then echo "::error::GEMINI_API_KEY secret is not set"; exit 1; fi
+          sed -i '' "s|YOUR_GEMINI_API_KEY|$GEMINI_API_KEY|" "$f"
 
       - name: Resolve Swift packages
         run: |
@@ -36,16 +39,17 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             build
 
-      - name: Package app
+      - name: Package IPA
         run: |
-          cd build/Build/Products/Release-iphoneos
-          zip -r "$GITHUB_WORKSPACE/VisionClaw-unsigned.zip" *.app
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/*.app Payload/
+          zip -qry "$GITHUB_WORKSPACE/VisionClaw.ipa" Payload
 
       - name: Upload app
         uses: actions/upload-artifact@v4
         with:
           name: VisionClaw-iOS-build
-          path: VisionClaw-unsigned.zip
+          path: VisionClaw.ipa
 
       - name: Package full CameraAccess project
         run: |
